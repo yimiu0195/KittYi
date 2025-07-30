@@ -1,4 +1,4 @@
-const activeEchoUsers = require('../utils/activeEcho');
+const echoManager = require('../utils/activeEcho');
 const { isAuthorized } = require('../utils/auth');
 
 module.exports = {
@@ -11,22 +11,20 @@ module.exports = {
             member: message.member,
         };
 
-        if (!isAuthorized(fakeInteraction)) {
-            return;
-        }
+        if (!isAuthorized(fakeInteraction)) return;
 
         const mode = args[0]?.toLowerCase();
         const userId = message.author.id;
+        const guildId = message.guild?.id;
+
+        if (!guildId) return;
+
+        await message.delete();
 
         if (mode === 'on') {
-            activeEchoUsers.add(userId);
-            await message.delete();
-            await message.author.send(`Echo mode is **ON**\nUse **Yi echo off** to turn it off`);
+            echoManager.enable(guildId, userId);
         } else if (mode === 'off') {
-            activeEchoUsers.delete(userId);
-            await message.delete();
-        } else {
-            await message.reply('Oof');
+            echoManager.disable(guildId, userId);
         }
     }
 };

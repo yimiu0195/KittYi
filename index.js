@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const registerCommands = require('./utils/registerCommands');
 const setupAutoTasks = require('./scripts/auto_main');
-const activeEchoUsers = require('./utils/activeEcho');
+const echoManager = require('./utils/activeEcho');
 
 const client = new Client({
     intents: [
@@ -85,13 +85,14 @@ client.on('messageCreate', async message => {
     const loweredPrefix = prefix.toLowerCase();
 
     if (!content.toLowerCase().startsWith(loweredPrefix)) {
-        if (activeEchoUsers.has(message.author.id)) {
-            try {
-                const trimmed = content?.trim();
-                if (!trimmed) return;
+        
+        if (message.guild && echoManager.isEnabled(message.guild.id, message.author.id)) {
+            const content = message.content?.trim();
+            if (!content) return;
 
+            try {
                 await message.delete();
-                await message.channel.send(trimmed);
+                await message.channel.send(content);
             } catch (err) {
                 console.error('Echo message err: ', err);
             }
