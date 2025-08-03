@@ -1,6 +1,6 @@
 # KittYi
 
-A discord bot is built for D I O N Y S U S
+A discord bot is built for You
 
 
 ## Features
@@ -8,12 +8,14 @@ A discord bot is built for D I O N Y S U S
 - Slash commands
 - Prefix commands
 - Toram commands
-- Scheduled messages and embeds
+- Scheduled commands 
+- Embeds commands
+- Steam Sale Notify commands
 
 
 ## Requirements
 
-- Node.js v23+
+- Node.js v20+
 - MySQL
 - Discord bot token
 
@@ -23,6 +25,9 @@ A discord bot is built for D I O N Y S U S
 ```bash
 # Install dependencies
 npm install
+
+# Create tables
+src = '.data/'
 
 #.env
 TOKEN=Your_Token
@@ -35,8 +40,6 @@ DB_PASS=
 DB_NAME=
 OWNER_ID=Your_Discord_ID
 ALLOWED_USER_IDS=Other_Discord_ID
-
-# Create tables
 
 # Start the bot
 node index.js
