@@ -10,7 +10,7 @@ A discord bot is built for You
 - Toram commands
 - Scheduled commands 
 - Embeds commands
-- Steam Sale Notify commands
+- Steam Sale Notification commands
 
 
 ## Requirements
