@@ -1,4 +1,4 @@
-const echoManager = require('../utils/activeEcho');
+const echoManager = require('../utils/active_echo');
 const { isAuthorized } = require('../utils/auth');
 
 module.exports = {

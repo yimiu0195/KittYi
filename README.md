@@ -36,6 +36,8 @@ DB_NAME=
 OWNER_ID=Your_Discord_ID
 ALLOWED_USER_IDS=Other_Discord_ID
 
+# Create tables
+
 # Start the bot
 node index.js
 ```

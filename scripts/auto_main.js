@@ -1,15 +1,15 @@
 const cron = require('node-cron');
 const runSchedules = require('./schedule_runner');
-const updateDetail = require('./update_detail');
-const updateIndex = require('./update_index');
-const notifyBot = require('./notifyBot');
+const updateIndex = require('./toram_index');
+const updateDetail = require('./toram_detail');
+const notifyBot = require('./toram_notify');
 
 function setupAllTasks(client) {
     cron.schedule('* * * * *', async () => {
         try {
             await runSchedules(client);
         } catch (err) {
-            console.error("❌ Cron job runSchedules err:", err.message);
+            console.error("Run schedules err:", err.message);
         }
     });
 
@@ -19,7 +19,7 @@ function setupAllTasks(client) {
             await updateDetail();
             await notifyBot(client);
         } catch (err) {
-            console.error("❌ Cron job err:", err.message);
+            console.error("Run Toram err:", err.message);
         }
     });
 }

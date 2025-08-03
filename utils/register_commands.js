@@ -6,7 +6,7 @@ require('dotenv').config();
 
 async function registerCommands(commands) {
     if (!commands || commands.size === 0) {
-        console.warn("⚠️ No commands to register");
+        console.warn('⚠️ No commands to register');
         return;
     }
 
@@ -29,7 +29,7 @@ async function registerCommands(commands) {
 
     try {
         console.log(`🔁 Registering ${commandsArray.length} slash command...`);
-        console.log("📋 Commands name:");
+        console.log('📋 Commands name:');
 
         for (const cmd of commandsArray) {
             console.log(` - /${cmd.name}`);
@@ -45,7 +45,7 @@ async function registerCommands(commands) {
 
         console.log(`✅ Slash commands have been registered ${location}.`);
     } catch (error) {
-        console.error("❌ Err when registering commands:", error);
+        console.error('❌ Err when registering commands:', error);
         if (error.code) {
             console.error(`🔺 Discord API code: ${error.code}`);
         }
@@ -67,7 +67,7 @@ if (require.main === module) {
 
         for (const cmd of modules) {
             if (!cmd?.data) {
-                console.warn(`⚠️ Skip "${file}" no 'data'`);
+                console.warn(`⚠️ Skip '${file}' no 'data'`);
                 continue;
             }
 
@@ -75,7 +75,7 @@ if (require.main === module) {
 
             for (const sub of dataArray) {
                 if (!sub?.name) {
-                    console.warn(`Skip file "${file}"`);
+                    console.warn(`Skip file '${file}'`);
                     continue;
                 }
 
@@ -85,7 +85,7 @@ if (require.main === module) {
                 }
 
                 commands.set(sub.name, cmd);
-                console.log(`✅ Loaded "/${sub.name}" from file ${file}`);
+                console.log(`✅ Loaded '/${sub.name}' from file ${file}`);
             }
         }
     }

@@ -1,9 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const { EmbedBuilder } = require("discord.js");
-const pool = require("../utils/db");
+const fs = require('fs');
+const path = require('path');
+const { EmbedBuilder } = require('discord.js');
+const pool = require('../utils/db');
 
-const CHANNEL_MAP = path.join(__dirname, "..", "data", "channel_map.json");
+const CHANNEL_MAP = path.join(__dirname, '..', 'data', 'channel_map.json');
 
 async function getArticlesToNotify() {
     const [rows] = await pool.query(`
@@ -35,8 +35,8 @@ async function markAsNotified(groupId) {
 async function sendEmbed(channel, rows) {
     let embeds = [];
     let currentEmbed = new EmbedBuilder().setColor(0xffffff);
-    let description = "";
-    const titleRow = rows.find(r => r.ContentType === "Title");
+    let description = '';
+    const titleRow = rows.find(r => r.ContentType === 'Title');
   
     // if (titleRow) {
     //     const titleEmbed = new EmbedBuilder()
@@ -49,18 +49,18 @@ async function sendEmbed(channel, rows) {
         description += `🌸 **${titleRow.Content}** 🌸\n\n\n------------\n\n`;
     }
     for (const { ContentType, Content } of rows) {
-        if (ContentType === "Deluxetitle") {
+        if (ContentType === 'Deluxetitle') {
             description += `🌟  **${Content}** 🌟 \n\n`;
-        } else if (ContentType === "Subtitle") {
+        } else if (ContentType === 'Subtitle') {
             description += `✩  **${Content}** ✩ \n\n`;
-        } else if (["Description", "Subdescription"].includes(ContentType)) {
+        } else if (['Description', 'Subdescription'].includes(ContentType)) {
             description += `${Content}\n\n`;
-        } else if (ContentType === "Img") {
+        } else if (ContentType === 'Img') {
             if (description.trim()) currentEmbed.setDescription(description.trim());
             currentEmbed.setImage(Content);
             embeds.push(currentEmbed);
             currentEmbed = new EmbedBuilder().setColor(0xffffff);
-            description = "";
+            description = '';
         }
     }
 
@@ -73,7 +73,7 @@ async function sendEmbed(channel, rows) {
             await channel.send({ 
                 embeds: [embed] 
             }).catch(err =>
-                console.error("Sent err:", err.message)
+                console.error('Sent err:', err.message)
             );
     }
 
@@ -83,7 +83,7 @@ async function sendEmbed(channel, rows) {
 module.exports = async function notifyBot(client) {
     let map = {};
     if (fs.existsSync(CHANNEL_MAP)) {
-        map = JSON.parse(fs.readFileSync(CHANNEL_MAP, "utf-8"));
+        map = JSON.parse(fs.readFileSync(CHANNEL_MAP, 'utf-8'));
     }
 
     const groupIds = await getArticlesToNotify();
@@ -115,5 +115,5 @@ module.exports = async function notifyBot(client) {
         await markAsNotified(groupId);
     }
 
-    console.log("✅ Status: Notified all articles.");
+    console.log('✅ Status: Notified all articles.');
 };

@@ -7,7 +7,7 @@ const {
     setChannelForGuild,
     loadChannelMap,
     saveChannelMap
-} = require('../utils/channelMap');
+} = require('../utils/channel_map');
 const { isAuthorized } = require('../utils/auth');
 
 module.exports = {

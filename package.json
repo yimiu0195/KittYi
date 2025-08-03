@@ -1,7 +1,7 @@
 {
   "name": "kittyi",
   "version": "1.0.0",
-  "description": "Discord bot for Yi ❤",
+  "description": "Discord bot for You ❤",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

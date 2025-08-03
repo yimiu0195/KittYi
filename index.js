@@ -3,9 +3,9 @@ const path = require('path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
 
-const registerCommands = require('./utils/registerCommands');
+const registerCommands = require('./utils/register_commands');
 const setupAutoTasks = require('./scripts/auto_main');
-const echoManager = require('./utils/activeEcho');
+const echoManager = require('./utils/active_echo');
 
 const client = new Client({
     intents: [
@@ -69,8 +69,8 @@ for (const file of eventFiles) {
 // Ready
 client.once('ready', async () => {
     console.log(`🤖 Bot ready: ${client.user.tag}`);
-    await registerCommands(client.commands); // Register slash commands
-    setupAutoTasks(client); // Setup auto jobs
+    await registerCommands(client.commands);
+    setupAutoTasks(client);
 
     client.user.setPresence({
         activities: [{ name: `You ✿ ⋆｡ ﾟ ☁︎｡⋆｡ ﾟ ☾ ﾟ ｡⋆`, type: 3 }], // type 3: watching

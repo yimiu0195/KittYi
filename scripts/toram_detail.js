@@ -1,31 +1,31 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
-const pool = require("../utils/db");
+const axios = require('axios');
+const cheerio = require('cheerio');
+const pool = require('../utils/db');
 
-const baseURL = "https://en.toram.jp";
+const baseURL = 'https://en.toram.jp';
 
 const blacklistSelectors = [    
-    "div.smallTitleLine.news_title_border",
-    "#top",
-    "#news > div > a",
-    "#news > div > details",  
+    'div.smallTitleLine.news_title_border',
+    '#top',
+    '#news > div > a',
+    '#news > div > details',  
 ];
 
 function extractText(el, $) {
-    let currentLine = "";
+    let currentLine = '';
 
     el.contents().each((_, node) => {
-        if (node.type === "text") {
-            const text = node.data.replace(/\s+/g, " "); // normalize whitespace
+        if (node.type === 'text') {
+            const text = node.data.replace(/\s+/g, ' '); // normalize whitespace
             currentLine += text;
-        } else if (node.type === "tag") {
-            if (node.name === "br") {
-                currentLine += "\n";
+        } else if (node.type === 'tag') {
+            if (node.name === 'br') {
+                currentLine += '\n';
             } else {
                 const wrapped = extractText($(node), $);
 
                 // Inline elements (like font, span, etc.) don't need spacing around
-                if (["b", "strong", "i", "em", "u", "font", "span"].includes(node.name)) {
+                if (['b', 'strong', 'i', 'em', 'u', 'font', 'span'].includes(node.name)) {
                     currentLine += wrapped;
                 } else {
                     // For block-level tags like div/p, maybe add spacing if needed
@@ -35,7 +35,7 @@ function extractText(el, $) {
         }
     });
 
-    return currentLine.trim().replace(/ *\n */g, "\n");
+    return currentLine.trim().replace(/ *\n */g, '\n');
 }
 
 function mergeDescriptionsUntilImage(data) {
@@ -43,11 +43,11 @@ function mergeDescriptionsUntilImage(data) {
     let buffer = [];
 
     for (const [type, content] of data) {
-        if (type === "Description") {
+        if (type === 'Description') {
             buffer.push(content.trim());
         } else {
             if (buffer.length > 0) {
-                merged.push(["Description", buffer.join("\n")]);
+                merged.push(['Description', buffer.join('\n')]);
                 buffer = [];
             }
             merged.push([type, content]);
@@ -55,7 +55,7 @@ function mergeDescriptionsUntilImage(data) {
     }
 
     if (buffer.length > 0) {
-        merged.push(["Description", buffer.join("\n")]);
+        merged.push(['Description', buffer.join('\n')]);
     }
 
     return merged;
@@ -65,7 +65,7 @@ async function scrapeToramInfo(url) {
     const res = await axios.get(url);
     const $ = cheerio.load(res.data);
     const result = [];
-    const container = $("#news > div")[0];
+    const container = $('#news > div')[0];
     if (!container) return [];
 
     const nodes = container.childNodes;
@@ -73,49 +73,49 @@ async function scrapeToramInfo(url) {
     for (let node of nodes) {
         if (!node) continue;
 
-        if (node.type === "text") {
+        if (node.type === 'text') {
             const text = node.data?.trim();
-            if (text && text !== "-") result.push(["Description", text]);
+            if (text && text !== '-') result.push(['Description', text]);
         }
 
-        if (node.type === "tag") {
+        if (node.type === 'tag') {
             const el = $(node);
-            const className = el.attr("class") || "";
+            const className = el.attr('class') || '';
 
             if (blacklistSelectors.some(sel => el.is(sel))) continue;
-            if (className.includes("btn_back_area")) break;
+            if (className.includes('btn_back_area')) break;
 
-            if (className.includes("deluxetitle")) {
-                result.push(["Deluxetitle", el.text().trim()]);
+            if (className.includes('deluxetitle')) {
+                result.push(['Deluxetitle', el.text().trim()]);
                 continue;
             }
 
-            if (className.includes("subtitle")) {
-                result.push(["Subtitle", el.text().trim()]);
+            if (className.includes('subtitle')) {
+                result.push(['Subtitle', el.text().trim()]);
                 continue;
             }
 
-            if (className.includes("description")) {
+            if (className.includes('description')) {
                 const cleaned = extractText(el, $);
-                if (cleaned) result.push(["Description", cleaned]);
+                if (cleaned) result.push(['Description', cleaned]);
                 continue;
             }
 
-            if (node.name === "img") {
-                const src = el.attr("src");
-                if (src) result.push(["Img", src.startsWith("http") ? src : baseURL + src]);
+            if (node.name === 'img') {
+                const src = el.attr('src');
+                if (src) result.push(['Img', src.startsWith('http') ? src : baseURL + src]);
                 continue;
             }
 
-            const img = el.find("img");
+            const img = el.find('img');
             if (img.length > 0) {
-                const src = img.attr("src");
-                if (src) result.push(["Img", src.startsWith("http") ? src : baseURL + src]);
+                const src = img.attr('src');
+                if (src) result.push(['Img', src.startsWith('http') ? src : baseURL + src]);
                 continue;
             }
 
             const text = el.text().trim();
-            if (text) result.push(["Description", text]);
+            if (text) result.push(['Description', text]);
         }
     }
 
@@ -147,13 +147,13 @@ async function updateDetail() {
         const detailData = [];
         let extractedDate = post.date || null;
 
-        detailData.push([post.group_id, "Title", post.title, true, extractedDate]);
+        detailData.push([post.group_id, 'Title', post.title, true, extractedDate]);
 
         const raw = await scrapeToramInfo(post.url);
         const merged = mergeDescriptionsUntilImage(raw);
 
         for (const [type, content] of merged) {
-            if (!extractedDate && type === "Description") {
+            if (!extractedDate && type === 'Description') {
                 const match = content.match(/Date:\s*(\d{4}-\d{2}-\d{2})/);
                 if (match) {
                     extractedDate = match[1];

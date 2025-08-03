@@ -1,0 +1,8 @@
+CREATE TABLE steamSales (
+	`id` INT AUTO_INCREMENT PRIMARY KEY,
+	`title` VARCHAR(255) UNIQUE,
+	`discount` VARCHAR(20),
+	`price` VARCHAR(50),
+	`url` TEXT,
+	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
