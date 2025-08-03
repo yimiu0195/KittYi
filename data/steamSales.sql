@@ -4,5 +4,6 @@ CREATE TABLE steamSales (
 	`discount` VARCHAR(20),
 	`price` VARCHAR(50),
 	`url` TEXT,
+    `release_date` VARCHAR(50) DEFAULT NULL,
 	`created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
