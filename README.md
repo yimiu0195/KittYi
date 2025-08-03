@@ -8,8 +8,8 @@ A discord bot is built for You
 - Slash commands
 - Prefix commands
 - Toram commands
-- Scheduled commands 
-- Embeds commands
+- Schedule commands
+- Embed commands
 - Steam Sale Notification commands
 
 
