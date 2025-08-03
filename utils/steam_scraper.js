@@ -8,7 +8,7 @@ async function scrapeSteamSales() {
 
     try {
         const page = await browser.newPage();
-        await page.goto('https://store.steampowered.com/search/?specials=1', {
+        await page.goto('https://store.steampowered.com/search/?specials=1&cc=vn', {
             waitUntil: 'networkidle2',
             timeout: 60000,
         });
