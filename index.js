@@ -68,7 +68,7 @@ for (const file of eventFiles) {
 
 // Ready
 client.once('ready', async () => {
-    console.log(`🤖 Bot ready: ${client.user.tag}`);
+    console.log(`🌸 Bot ready: ${client.user.tag}`);
     await registerCommands(client.commands);
     setupAutoTasks(client);
 
