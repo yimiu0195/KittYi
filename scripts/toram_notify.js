@@ -1,9 +1,7 @@
-const fs = require('fs');
-const path = require('path');
 const { EmbedBuilder } = require('discord.js');
 const pool = require('../utils/db');
 
-const CHANNEL_MAP = path.join(__dirname, '..', 'data', 'channel_map.json');
+const { loadChannelMap } = require('../utils/toram_channel');
 
 async function getArticlesToNotify() {
     const [rows] = await pool.query(`
@@ -81,10 +79,7 @@ async function sendEmbed(channel, rows) {
 }
 
 module.exports = async function notifyBot(client) {
-    let map = {};
-    if (fs.existsSync(CHANNEL_MAP)) {
-        map = JSON.parse(fs.readFileSync(CHANNEL_MAP, 'utf-8'));
-    }
+    const map = await loadChannelMap();
 
     const groupIds = await getArticlesToNotify();
     if (groupIds.length === 0) {

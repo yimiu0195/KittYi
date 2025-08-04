@@ -2,12 +2,15 @@ const {
     SlashCommandBuilder, 
     ChannelType,
     EmbedBuilder } = require('discord.js');
+
 const pool = require('../utils/db');
+
 const {
     setChannelForGuild,
     loadChannelMap,
-    saveChannelMap
-} = require('../utils/channel_map');
+    removeChannelForGuild
+} = require('../utils/toram_channel');
+
 const { isAuthorized } = require('../utils/auth');
 
 module.exports = {
@@ -153,14 +156,13 @@ module.exports = {
 
         // toram remove
         else if (sub === 'remove') {
-            const map = loadChannelMap();
+            const map = await loadChannelMap();
             if (!map[guildId]) {
                 await interaction.reply("**This server is not subscribed to toram news**");
                 return;
             }
 
-            delete map[guildId];
-            saveChannelMap(map);
+            await removeChannelForGuild(guildId);
             await interaction.reply("**Successfully unsubscribed**");
         }
     }

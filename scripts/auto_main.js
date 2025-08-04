@@ -14,7 +14,7 @@ function setupAllTasks(client) {
         }
     });
 
-    cron.schedule('*/1 * * * *', async () => {
+    setInterval(async () => {
         try {
             await updateIndex();
             await updateDetail();
@@ -22,7 +22,7 @@ function setupAllTasks(client) {
         } catch (err) {
             console.error("Run Toram err:", err.message);
         }
-    });
+    }, 30_000);
 
     cron.schedule('*/30 * * * *', async () => {
         try {
