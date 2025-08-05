@@ -1,4 +1,4 @@
-CREATE TABLE ToramDetail (
+CREATE TABLE IF NOT EXISTS ToramDetail (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `group_id` INT NOT NULL,
     `content_type` VARCHAR(50) NOT NULL,

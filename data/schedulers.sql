@@ -1,4 +1,4 @@
-CREATE TABLE schedulers (
+CREATE TABLE IF NOT EXISTS schedulers (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `name_scheduler` VARCHAR(100) NOT NULL,
     `content` TEXT NOT NULL,

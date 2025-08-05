@@ -1,4 +1,4 @@
-CREATE TABLE steamSales (
+CREATE TABLE IF NOT EXISTS steamSales (
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
 	`title` VARCHAR(255) UNIQUE,
 	`discount` VARCHAR(20),

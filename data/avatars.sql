@@ -1,4 +1,4 @@
-CREATE TABLE avatars (
+CREATE TABLE IF NOT EXISTS avatars (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
     `year` VARCHAR(10),

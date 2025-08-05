@@ -1,4 +1,4 @@
-CREATE TABLE `consumables` (
+CREATE TABLE IF NOT EXISTS `consumables` (
     `id` int(11) NOT NULL,
     `name` varchar(100) DEFAULT NULL,
     `type` varchar(50) DEFAULT NULL,
