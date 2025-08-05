@@ -26,9 +26,6 @@ A discord bot is built for You
 # Install dependencies
 npm install
 
-# Create tables
-node .\scripts\init_db.js
-
 # .env
 TOKEN=Bot_Token
 CLIENT_ID=Bot_Client_ID
@@ -40,6 +37,9 @@ DB_PASS=
 DB_NAME=
 OWNER_ID=Your_Discord_ID
 ALLOWED_USER_IDS=Other_Discord_ID
+
+# Create tables
+node .\scripts\init_db.js
 
 # Start the bot
 node index.js
