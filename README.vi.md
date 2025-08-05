@@ -1,12 +1,6 @@
-# 📚 Available Languages
-
-- 🇬🇧 [English](README.md) ← You're here
-- 🇻🇳 [Tiếng Việt](README.vi.md)
-
-
 # KittYi
 
-A discord bot is built for You
+Discord Bot
 
 
 ## Clone code
@@ -16,14 +10,14 @@ git clone https://github.com/yimiu0195/KittYi.git
 ```
 
 
-## Update Code
+## Cập nhật Code
 
 ```bash
 git pull origin main
 ```
 
 
-## Features
+## Các tính năng chính của bot
 
 - Slash commands
 - Prefix commands
@@ -33,20 +27,20 @@ git pull origin main
 - Steam Sale Notification commands
 
 
-## Requirements
+## Yêu cầu
 
 - Node.js v20+
 - MySQL
 - Discord bot token
 
 
-## Setup
+## Thiết lập
 
 ```bash
-# Install dependencies
+# Cài đặt thư viện
 npm install
 
-# .env
+# .env (Tạo file .env nằm cùng cấp với index.js, nội dung .env như sau)
 TOKEN=Bot_Token
 CLIENT_ID=Bot_Client_ID
 PREFIX=yi
@@ -55,16 +49,16 @@ DB_PORT=
 DB_USER=
 DB_PASS=
 DB_NAME=
-OWNER_ID=Your_Discord_ID
-ALLOWED_USER_IDS=Other_Discord_ID
+OWNER_ID=Discord_ID_của_bản_thân
+ALLOWED_USER_IDS=Discord_ID_của_những_người_dùng_khác
 
-# Create tables
+# Tạo bảng trong database
 node .\scripts\init_db.js
 
-# Start the bot
+# Chạy bot
 node index.js
 ```
 
 
-## Contact
-Created by [Hua&Ya] (https://github.com/yimiu0195)
+## Liên hệ
+Được tạo bởi [Hua&Ya] (https://github.com/yimiu0195)
