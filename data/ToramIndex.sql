@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS ToramIndex (
     `url` TEXT NOT NULL,
     `date` DATE NOT NULL,
     `type` VARCHAR(50) NOT NULL,
-    `created_at` DATETIME NOT NULL
+    `created_at` DATETIME DEFAULT NULL,
     UNIQUE KEY unique_group_title_date (`group_id`, `title`, `date`)
 );
