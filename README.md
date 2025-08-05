@@ -27,11 +27,11 @@ A discord bot is built for You
 npm install
 
 # Create tables
-src = '.data/'
+node .\scripts\init_db.js
 
-#.env
-TOKEN=Your_Token
-CLIENT_ID=Your_Client_ID
+# .env
+TOKEN=Bot_Token
+CLIENT_ID=Bot_Client_ID
 PREFIX=yi
 DB_HOST=
 DB_PORT=
